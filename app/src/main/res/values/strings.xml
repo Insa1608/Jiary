@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Jiary</string>
+    <string name="add_a_journal_entry">Add a journal entry</string>
+    <string name="title">Title</string>
+    <string name="description">Journal Entry</string>
+    <string name="save">Save Journal Entry</string>
+    <string name="image">image</string>
+    <string name="date">Date</string>
+    <string name="journal">%1$s Journal</string>
+    <string name="error_saving_note">Invalid Info</string>
+    <string name="sort_by_date">Sort by date</string>
+    <string name="sort_by_title">Sort by title</string>
+    <string name="d">Date</string>
+    <string name="t">Title</string>
+</resources>
