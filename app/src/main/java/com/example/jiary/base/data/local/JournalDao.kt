@@ -2,9 +2,7 @@ package com.example.jiary.base.data.local
 
 import androidx.room.Dao
 import androidx.room.Delete
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import androidx.room.Upsert
 
 /**
@@ -21,11 +19,10 @@ interface JournalDao {
     @Delete
     suspend fun deleteJournalEntity(journalEntity: JournalEntity)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateJournalEntity(journalEntity: JournalEntity)
+    @Query("SELECT * FROM journalentity WHERE id = :id")
+    suspend fun getJournalEntityById(id: Int): JournalEntity?
 
     @Query("SELECT * FROM journalentity")
     suspend fun getAllJournalEntities(): List<JournalEntity>
-
 
 }

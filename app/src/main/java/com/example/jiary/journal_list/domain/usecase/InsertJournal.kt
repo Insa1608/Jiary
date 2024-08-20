@@ -1,4 +1,4 @@
-package com.example.jiary.journaladd.cases
+package com.example.jiary.journal_list.domain.usecase
 
 import com.example.jiary.base.domain.model.JournalItem
 import com.example.jiary.base.domain.model.repo.JournalRepo
@@ -9,7 +9,8 @@ class InsertJournal(
 
     suspend operator fun invoke(
         title: String,
-        entry: String
+        entry: String,
+        date: Long
     ): Boolean {
         if (title.isEmpty() || entry.isEmpty()) {
             return false
@@ -17,7 +18,7 @@ class InsertJournal(
         val journal = JournalItem(
             title = title,
             entry = entry,
-            date = System.currentTimeMillis()
+            date = date
         )
 
         journalRepo.insertJournal(journal)

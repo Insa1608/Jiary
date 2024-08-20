@@ -44,14 +44,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import com.example.jiary.R
+import com.example.jiary.base.display.FirstScreen
 import com.example.jiary.base.display.util.Tags
 import com.example.jiary.base.domain.model.JournalItem
 
 
 @Composable
 fun JournalScreen(
-    onNavigationToAddJournal: () -> Unit,
-    onNavigateToJournalUpdate: (Int) -> Unit,
+    onNavigationToAddJournal: (Int?) -> Unit,
     journalListViewModel: JournalViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(true) {
@@ -101,7 +101,7 @@ fun JournalScreen(
         floatingActionButton = {
             FloatingActionButton(
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
-                onClick = onNavigationToAddJournal
+                onClick = {onNavigationToAddJournal(null) }
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -122,11 +122,13 @@ fun JournalScreen(
             ) {
                 index ->
                 ListJournalItem(
-                    onItemClick = onNavigateToJournalUpdate,
                     onDelete = {
                         journalListViewModel.deleteJournal(journalListState[index])
                     },
-                    journalListState[index]
+                    onEdit = {
+                        onNavigationToAddJournal(journalListState[index].id)
+                    },
+                    journalItem = journalListState[index]
                 )
                 Spacer(modifier = Modifier.height(20.dp))
             }
@@ -139,7 +141,7 @@ fun JournalScreen(
 @Composable
 fun ListJournalItem(
     onDelete: () -> Unit,
-    onItemClick: (Int) -> Unit,
+    onEdit: () -> Unit,
     journalItem: JournalItem,
     modifier: Modifier = Modifier
 ) {
@@ -177,12 +179,12 @@ fun ListJournalItem(
 
             Text(
                 text = journalItem.title,
-                onItemClick = {onItemClick(it.id)},
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontWeight = FontWeight.Bold,
                 fontSize = 19.sp,
                 maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.clickable { onEdit() }
             )
             Spacer(modifier = Modifier.height(16.dp))
 

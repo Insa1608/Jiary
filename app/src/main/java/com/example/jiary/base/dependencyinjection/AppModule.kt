@@ -7,8 +7,10 @@ import com.example.jiary.base.data.repo.JournalRepoImplementation
 import com.example.jiary.base.domain.model.repo.JournalRepo
 import com.example.jiary.journal_list.domain.usecase.DeleteJournal
 import com.example.jiary.journal_list.domain.usecase.GetAllJournals
-import com.example.jiary.journalupdate.cases.UpdateJournal
-import com.example.jiary.journaladd.cases.InsertJournal
+import com.example.jiary.journal_list.domain.usecase.GetJournalById
+import com.example.jiary.journal_list.domain.usecase.InsertJournal
+import com.example.jiary.journal_list.domain.usecase.JournalUseCases
+import com.example.jiary.journal_list.domain.usecase.UpdateJournal
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +20,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 
-object AppModule{
+object AppModule {
     @Provides
     @Singleton
     fun provideJournalDb(application: Application): JournalDb {
@@ -39,34 +41,15 @@ object AppModule{
 
     @Provides
     @Singleton
-    fun provideAllJournalCases(
-        journalRepo: JournalRepo
-    ): GetAllJournals {
-        return GetAllJournals(journalRepo)
-    }
-
-    @Provides
-    @Singleton
-    fun provideDeleteJournalCases(
-        journalRepo: JournalRepo
-    ): DeleteJournal {
-        return DeleteJournal(journalRepo)
-    }
-
-    @Provides
-    @Singleton
-    fun provideInsertJournalCases(
-        journalRepo: JournalRepo
-    ): InsertJournal {
-        return InsertJournal(journalRepo)
-    }
-
-    @Provides
-    @Singleton
-    fun provideUpdateJournalCases(
-        journalRepo: JournalRepo
-    ): UpdateJournal {
-        return UpdateJournal(journalRepo)
+    fun provideJournalUseCases(
+        journalRepo: JournalRepo): JournalUseCases {
+        return JournalUseCases(
+            getAllJournals = GetAllJournals(journalRepo),
+            getJournalById = GetJournalById(journalRepo),
+            deleteJournal = DeleteJournal(journalRepo),
+            insertJournal = InsertJournal(journalRepo),
+            updateJournal = UpdateJournal(journalRepo)
+        )
     }
 
 }

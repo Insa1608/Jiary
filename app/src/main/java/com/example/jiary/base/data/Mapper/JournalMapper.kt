@@ -3,16 +3,7 @@ package com.example.jiary.base.data.Mapper
 import com.example.jiary.base.data.local.JournalEntity
 import com.example.jiary.base.domain.model.JournalItem
 
-fun JournalItem.toJournalEntityForInsert(
-): JournalEntity {
-    return JournalEntity(
-        title = title,
-        entry = entry,
-        date = date
-    )
-}
-
-fun JournalItem.toJournalEntityForDelete(
+fun JournalItem.toJournalEntity(
 ): JournalEntity {
     return JournalEntity(
         title = title,
@@ -21,17 +12,6 @@ fun JournalItem.toJournalEntityForDelete(
         id = id
     )
 }
-
-fun JournalItem.toJournalEntityForChange(
-): JournalEntity {
-    return JournalEntity(
-        title = title,
-        entry = entry,
-        date = date,
-        id = id
-    )
-}
-
 
 //wrapper function from the data/local/JournalEntity to the domain/Model/JournalItem we want to use
 //a default value of zero is set to the id just to be sure, but normally there should be set an id
@@ -41,6 +21,6 @@ fun JournalEntity.toJournalItem(): JournalItem {
         title = title,
         entry = entry,
         date = date,
-        id = id ?: 0
+        id = id
     )
 }

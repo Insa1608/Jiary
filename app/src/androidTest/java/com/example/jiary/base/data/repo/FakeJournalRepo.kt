@@ -10,10 +10,10 @@ class FakeJournalRepo: JournalRepo{
         journalItems =
             if (shouldHaveFilled) {
                 mutableListOf(
-                    JournalItem("title 1", "entry 1", "image 1", 1),
-                    JournalItem("title 2", "entry 2", "image 2", 2),
-                    JournalItem("title 3", "entry 3", "image 3", 3),
-                    JournalItem("title 4", "entry 4", "image 4", 4)
+                    JournalItem("title 1", "entry 1", 1),
+                    JournalItem("title 2", "entry 2", 2),
+                    JournalItem("title 3", "entry 3", 3),
+                    JournalItem("title 4", "entry 4", 4)
                 )
             } else {
                 mutableListOf()

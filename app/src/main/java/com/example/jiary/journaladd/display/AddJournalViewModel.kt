@@ -2,7 +2,7 @@ package com.example.jiary.journaladd.display
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.jiary.journaladd.cases.InsertJournal
+import com.example.jiary.journal_list.domain.usecase.JournalUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,13 +14,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddJournalViewModel @Inject constructor(
-    private val insertJournal: InsertJournal
+    private val journalUseCases: JournalUseCases
 ) : ViewModel() {
     private val _addJournalState = MutableStateFlow(AddJournalState())
     val addJournalState = _addJournalState.asStateFlow()
 
     private val _journalSavedChannel = Channel<Boolean>()
     val journalSavedFlow = _journalSavedChannel.receiveAsFlow()
+
+    fun loadJournal(journalId: Int) {
+        viewModelScope.launch {
+            val journal = journalUseCases.getJournalById(journalId)
+            if (journal != null) {
+                _addJournalState.update { state ->
+                    state.copy(
+                        title = journal.title,
+                        entry = journal.entry,
+                        journalId = journalId
+                    )
+                }
+            }
+        }
+    }
 
     fun onAction(action: AddJournalAction) {
         when (action) {
@@ -39,7 +54,8 @@ class AddJournalViewModel @Inject constructor(
                 viewModelScope.launch {
                     val isSaved = insertJournal(
                         title = addJournalState.value.title,
-                        entry = addJournalState.value.entry)
+                        entry = addJournalState.value.entry,
+                        journalId = addJournalState.value.journalId)
                     _journalSavedChannel.send(isSaved)
                 }
             }
@@ -49,12 +65,24 @@ class AddJournalViewModel @Inject constructor(
 
     suspend fun insertJournal(
         title: String,
-        entry: String): Boolean {
-        return insertJournal.invoke(
-            title = title,
-            entry = entry
-        )
+        entry: String,
+        journalId: Int?
+    ): Boolean {
+        val date = System.currentTimeMillis()
+        return if (journalId == null) {
+            journalUseCases.insertJournal.invoke(
+                title = title,
+                entry = entry,
+                date = date
+            )
+        } else {
+            journalUseCases.updateJournal.invoke(
+                journalId = journalId,
+                title = title,
+                entry = entry,
+                date = date
+            )
+        }
     }
-
 
 }

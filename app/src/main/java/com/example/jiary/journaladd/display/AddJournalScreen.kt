@@ -37,11 +37,18 @@ import java.util.Date
 @Composable
 fun AddJournalScreen(
     onSave: () -> Unit,
+    journalId: Int?,
     addJournalViewModel: AddJournalViewModel = hiltViewModel()
 ){
     val addJournalState  by addJournalViewModel.addJournalState.collectAsState()
-
     val context = LocalContext.current
+
+    LaunchedEffect(journalId) {
+        if (journalId != null){
+            addJournalViewModel.loadJournal(journalId)
+        }
+    }
+
     LaunchedEffect(true) {
         addJournalViewModel.journalSavedFlow.collectLatest { saved ->
             if (saved) {

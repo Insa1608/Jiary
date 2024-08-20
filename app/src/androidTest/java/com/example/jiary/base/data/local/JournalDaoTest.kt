@@ -58,7 +58,6 @@ class JournalDaoTest {
                 id = i,
                 title = "title $i",
                 entry = "entry $i",
-                image = "image $i",
                 date = System.currentTimeMillis()
             )
             dao.upsertJournalEntity(journalEntity)
@@ -75,7 +74,6 @@ class JournalDaoTest {
             id = 1,
             title = "title",
             entry = "entry",
-            image = "image",
             date = System.currentTimeMillis()
         )
 
@@ -92,7 +90,6 @@ class JournalDaoTest {
             id = 1,
             title = "title",
             entry = "entry",
-            image = "image",
             date = System.currentTimeMillis()
         )
 

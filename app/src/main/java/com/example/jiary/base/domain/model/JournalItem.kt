@@ -4,5 +4,5 @@ data class JournalItem (
     var title: String,
     var entry: String,
     var date: Long,
-    val id: Int = 0,
+    val id: Int? = null
 )
