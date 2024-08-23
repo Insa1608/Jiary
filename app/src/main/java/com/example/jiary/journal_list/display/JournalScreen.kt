@@ -32,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -44,10 +43,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import com.example.jiary.R
-import com.example.jiary.base.display.FirstScreen
-import com.example.jiary.base.display.util.Tags
 import com.example.jiary.base.domain.model.JournalItem
 
+/**
+ * the starting screen of the application is defined here
+ */
 
 @Composable
 fun JournalScreen(
@@ -61,9 +61,11 @@ fun JournalScreen(
     val journalListState by journalListViewModel.journalListState.collectAsState()
     val orderByTitleState by journalListViewModel.orderByTitleState.collectAsState()
 
+    //the components shown on the screen are defined in a scaffold
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
+            //every row and column is defined with size and alignment
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -86,6 +88,7 @@ fun JournalScreen(
                         }
                         .padding(horizontal = 4.dp)
                 ) {
+                    //functions order by title or date are used here to sort the journal entries on the screen
                     Text(
                         text = if (orderByTitleState) stringResource(R.string.t)
                         else stringResource(R.string.d), textAlign = TextAlign.Start, fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
@@ -98,6 +101,7 @@ fun JournalScreen(
                 }
             }
         },
+        //button to change the screens and to add a new journal entry
         floatingActionButton = {
             FloatingActionButton(
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
@@ -120,6 +124,7 @@ fun JournalScreen(
                 count = journalListState.size,
                 key = { it }
             ) {
+                // call of deleting or editing of a journal entry, defined in fun ListJournalItem
                 index ->
                 ListJournalItem(
                     onDelete = {
@@ -137,7 +142,8 @@ fun JournalScreen(
     }
 
 }
-
+//second composable function where the deletion or editing is defined
+//here the style of the separate journal entries is defined
 @Composable
 fun ListJournalItem(
     onDelete: () -> Unit,
@@ -145,6 +151,7 @@ fun ListJournalItem(
     journalItem: JournalItem,
     modifier: Modifier = Modifier
 ) {
+    //background color is defined with materialtheme
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -156,6 +163,7 @@ fun ListJournalItem(
             .background(MaterialTheme.colorScheme.primary)
             .padding(8.dp)
     ){
+        //position of the hard coded image is defined
         Image(
             modifier = Modifier
                 .height(200.dp)
@@ -177,6 +185,7 @@ fun ListJournalItem(
 
             Spacer(modifier = Modifier.height(2.dp))
 
+            //Position of the title is defined and the method onEdit is set here
             Text(
                 text = journalItem.title,
                 color = MaterialTheme.colorScheme.onPrimary,
@@ -196,7 +205,7 @@ fun ListJournalItem(
                 overflow = TextOverflow.Ellipsis
             )
         }
-
+        // an cross Icon is set to every journal entry and the onDelete method is embedded
         Icon(
             modifier = Modifier.clickable { onDelete() },
             imageVector = Icons.Default.Clear,

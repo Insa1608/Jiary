@@ -15,6 +15,7 @@ import com.example.jiary.base.display.ui.theme.JiaryTheme
 import com.example.jiary.journal_list.display.JournalScreen
 import com.example.jiary.journaladd.display.AddJournalScreen
 
+//define the entrypoint of the application and build a composable function
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    //composable function to navigate between the screens unsing navHost
     @Composable
     fun Navigation(modifier: Modifier = Modifier){
         val navController = rememberNavController()
@@ -35,6 +37,7 @@ class MainActivity : ComponentActivity() {
             navController = navController,
             startDestination = FirstScreen.JournalList.route
         ) {
+            //navigation from the starting screen to the second screen where a journal entry can be add
             composable(FirstScreen.JournalList.route) {
                 JournalScreen(
                     onNavigationToAddJournal = { journalId ->
@@ -43,6 +46,8 @@ class MainActivity : ComponentActivity() {
                     }
                 )
             }
+            //the defined route is used to navigate to the screen and when an id is presents the
+            //existing entry is loaded from the stack
             composable(
                 route = "addJournal/{journalId}",
                 arguments = listOf(navArgument("journalId") { type = NavType.StringType })

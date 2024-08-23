@@ -32,7 +32,9 @@ import kotlinx.coroutines.flow.collectLatest
 import java.text.SimpleDateFormat
 import java.util.Date
 
-
+/**
+ * the appearance of the second screen is defined here
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddJournalScreen(
@@ -43,12 +45,14 @@ fun AddJournalScreen(
     val addJournalState  by addJournalViewModel.addJournalState.collectAsState()
     val context = LocalContext.current
 
+    //here is the definition that when the journalId is present this specific entry should be loaded
     LaunchedEffect(journalId) {
         if (journalId != null){
             addJournalViewModel.loadJournal(journalId)
         }
     }
-
+    //connection to the viewmodel to save a journal entry, when information in the entry is missing
+    //a toast said "invalid info"
     LaunchedEffect(true) {
         addJournalViewModel.journalSavedFlow.collectLatest { saved ->
             if (saved) {
@@ -64,7 +68,7 @@ fun AddJournalScreen(
 
     }
 
-
+    //a date picker is set on the top of the screen but the chosen date is not send to the database
     val datePickerState = rememberDatePickerState(selectableDates = object : SelectableDates {
         override fun isSelectableDate(utcTimeMillis: Long): Boolean {
             return utcTimeMillis <= System.currentTimeMillis()
@@ -88,7 +92,7 @@ fun AddJournalScreen(
         )
 
         Spacer(modifier = Modifier.height(25.dp))
-
+        //title field is defined and the action to update the state when an entry is made is set
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
@@ -105,7 +109,7 @@ fun AddJournalScreen(
             maxLines = 2
         )
         Spacer(modifier = Modifier.height(16.dp))
-
+        //definition of the field for the journal entry
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
@@ -121,7 +125,7 @@ fun AddJournalScreen(
             },
         )
         Spacer(modifier = Modifier.height(16.dp))
-
+        //definition of the button to save a journal entry
         Button(
             modifier = Modifier
                 .fillMaxWidth()

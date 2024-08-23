@@ -3,6 +3,7 @@ package com.example.jiary.journal_list.domain.usecase
 import com.example.jiary.base.domain.model.JournalItem
 import com.example.jiary.base.domain.model.repo.JournalRepo
 
+//class for inserting a new journal entry
 class InsertJournal(
     private val journalRepo: JournalRepo
 ) {

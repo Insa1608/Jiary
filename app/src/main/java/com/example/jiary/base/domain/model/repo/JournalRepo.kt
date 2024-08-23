@@ -3,6 +3,9 @@ package com.example.jiary.base.domain.model.repo
 
 import com.example.jiary.base.domain.model.JournalItem
 
+/**
+ * interface that delivery the data needed in the application to the use cases
+ */
 interface JournalRepo {
 
     suspend fun insertJournal(journalItem: JournalItem)

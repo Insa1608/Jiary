@@ -9,6 +9,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+/**
+ * test checks if the fake journal entry is really deleted. Test returns false when journal
+ * entry is still available after the deletion process
+ */
 
 class DeleteJournalTest{
 

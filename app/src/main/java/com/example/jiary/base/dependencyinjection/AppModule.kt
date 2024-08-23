@@ -20,6 +20,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 
+/**
+ * The different functions are instantiated as a singleton to guarantee
+ * that multiple instances are not created during the runtime
+ */
 object AppModule {
     @Provides
     @Singleton

@@ -3,6 +3,7 @@ package com.example.jiary.journal_list.domain.usecase
 import com.example.jiary.base.domain.model.JournalItem
 import com.example.jiary.base.domain.model.repo.JournalRepo
 
+//class to get all journal entries. Moreover the sorting is set here
 class GetAllJournals(
     private val journalRepo: JournalRepo
 ) {

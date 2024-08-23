@@ -8,6 +8,11 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+/**
+ * test checks if an empty list is returned when there are no journal entries
+ * and if the the sorting function works correct
+ */
+
 class GetAllJournalsTest {
 
     @get:Rule

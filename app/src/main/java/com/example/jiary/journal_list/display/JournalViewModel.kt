@@ -22,7 +22,7 @@ class JournalViewModel @Inject constructor(
 
     private val _orderByTitleState = MutableStateFlow(false)
     val orderByTitleState = _orderByTitleState.asStateFlow()
-
+    //loads journal entries ordered by title
     fun loadJournal(){
         viewModelScope.launch{
             _journalListState.update {
@@ -31,7 +31,7 @@ class JournalViewModel @Inject constructor(
         }
 
     }
-
+    //calls the use case for deleting a journal entry
     fun deleteJournal(journalItem: JournalItem){
         viewModelScope.launch{
             journalUseCases.deleteJournal.invoke(journalItem)
@@ -39,7 +39,7 @@ class JournalViewModel @Inject constructor(
         }
 
     }
-
+    //calls the function to change the order of the journal entries
     fun changeOrder() {
         viewModelScope.launch {
             _orderByTitleState.update { !it }

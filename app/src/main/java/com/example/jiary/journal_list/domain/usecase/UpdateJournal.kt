@@ -3,6 +3,8 @@ package com.example.jiary.journal_list.domain.usecase
 import com.example.jiary.base.domain.model.JournalItem
 import com.example.jiary.base.domain.model.repo.JournalRepo
 
+//class for updating an existing journal entry.
+//to guarantee that the correct entry is chosen the journalId is needed here
 class UpdateJournal(
     private val journalRepo: JournalRepo
 ) {

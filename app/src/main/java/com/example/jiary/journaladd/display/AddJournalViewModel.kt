@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * View Model working with Hilt to provide the different use cases needed
+ */
 @HiltViewModel
 class AddJournalViewModel @Inject constructor(
     private val journalUseCases: JournalUseCases
@@ -36,7 +39,7 @@ class AddJournalViewModel @Inject constructor(
             }
         }
     }
-
+    // in the onAction function the different fields are updated and saved to the state and then to the db
     fun onAction(action: AddJournalAction) {
         when (action) {
             is AddJournalAction.UpdateTitle -> {
@@ -62,7 +65,7 @@ class AddJournalViewModel @Inject constructor(
 
         }
     }
-
+    // here the use cases for inserting and updating a journal are defined
     suspend fun insertJournal(
         title: String,
         entry: String,

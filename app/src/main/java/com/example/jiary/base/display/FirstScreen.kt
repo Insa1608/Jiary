@@ -1,5 +1,10 @@
 package com.example.jiary.base.display
 
+/**
+ * interface to support the building of the routes between the different screens
+ * in the MainActivity file
+ */
+
 sealed interface FirstScreen {
     val route: String
 

@@ -32,4 +32,12 @@ class FakeJournalRepoUnitTest: JournalRepo{
         return journalItems
     }
 
+    override suspend fun updateJournal(journalItem: JournalItem) {
+        journalItems.add(journalItem)
+    }
+
+    override suspend fun getJournalById(id: Int): JournalItem? {
+        TODO("Not yet implemented")
+    }
+
 }

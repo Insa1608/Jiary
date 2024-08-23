@@ -3,6 +3,7 @@ package com.example.jiary.journal_list.domain.usecase
 import com.example.jiary.base.domain.model.JournalItem
 import com.example.jiary.base.domain.model.repo.JournalRepo
 
+//class for deleting a journal entry
 class DeleteJournal(
     private val journalRepo: JournalRepo
 ) {
